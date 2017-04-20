@@ -7,15 +7,21 @@
 //
 
 import UIKit
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
   var window: UIWindow?
+  var locationManager = CLLocationManager()
 
-
+  let regionUUIDString = "2F234454-CF6D-4A0F-ADF2-F4911BA9CAFE"
+  var regionUUID: UUID!
+  var beaconRegion: CLBeaconRegion!
+  
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
+    locationManager.delegate = self
+    checkAuthorization()
     return true
   }
 
@@ -41,6 +47,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
   }
 
-
+  func checkAuthorization() {
+    if (CLLocationManager.authorizationStatus() != .authorizedAlways) {
+      locationManager.requestAlwaysAuthorization()
+    }
+    else {
+      if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
+        startMonitoringRegion()
+      }
+    }
+  }
+  
+  func startMonitoringRegion() {
+    regionUUID = UUID(uuidString: regionUUIDString)
+    beaconRegion = CLBeaconRegion(proximityUUID: regionUUID, identifier: "Beacon Region")
+    locationManager.startMonitoring(for: beaconRegion)
+//    locationManager.startRangingBeacons(in: beaconRegion)
+    locationManager.allowsBackgroundLocationUpdates = true
+  }
+  
+  func stopMonitoringRegion() {
+    locationManager.stopMonitoring(for: beaconRegion)
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    if (status == .authorizedAlways) {
+      startMonitoringRegion()
+    }
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    NSLog("didEnterRegion \(region.identifier)")
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+    NSLog("didExitRegion \(region.identifier)")
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], in region: CLBeaconRegion) {
+    NSLog("didRangeBeacons \(region.identifier). Beacon count is \(beacons.count)")
+  }
 }
 
