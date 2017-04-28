@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import CoreBluetooth
+import UserNotifications
 
 class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralManagerDelegate {
 
@@ -17,6 +18,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
   @IBOutlet weak var bluetoothStatusLabel: UILabel!
   @IBOutlet weak var monitorRegionSwitch: UISwitch!
   @IBOutlet weak var rangeBeaconsInRegionSwitch: UISwitch!
+  @IBOutlet weak var localNotificationsSwitch: UISwitch!
   @IBOutlet weak var regionStatusLabel: UILabel!
   
   var bluetoothManager = CBCentralManager()
@@ -25,6 +27,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
   let regionUUIDString = "2F234454-CF6D-4A0F-ADF2-F4911BA9CAFE"
   var regionUUID: UUID!
   var beaconRegion: CLBeaconRegion!
+  var enterBeaconRegion: CLBeaconRegion!
+  var exitBeaconRegion: CLBeaconRegion!
 
   let logBorderWidth = CGFloat(2.0)
   let logBorderColor = UIColor.black.cgColor
@@ -35,6 +39,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
     enableControlsForState(bluetoothState: bluetoothManager.state)
     initializeCoreLocation()
     initializeBeaconData()
+    initializeNotifications()
     decorateViews()
   }
   
@@ -51,7 +56,57 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
     uuidLabel.text = regionUUIDString
     regionUUID = UUID(uuidString: regionUUIDString)
     beaconRegion = CLBeaconRegion(proximityUUID: regionUUID, identifier: "Beacon Region")
+    enterBeaconRegion = CLBeaconRegion(proximityUUID: regionUUID, identifier: "Enter Beacon Region")
+    enterBeaconRegion.notifyOnExit = false
+    exitBeaconRegion = CLBeaconRegion(proximityUUID: regionUUID, identifier: "Exit Beacon Region")
+    exitBeaconRegion.notifyOnEntry = false
   }
+  
+  func initializeNotifications() {
+    let center = UNUserNotificationCenter.current()
+    let options: UNAuthorizationOptions = [.alert, .sound]
+    center.requestAuthorization(options: options) {
+      (granted, error) in
+      if !granted {
+        self.logMessage("C'mon, man!")
+      }
+    }
+  }
+  
+  func createLocalNotifications() {
+    let center = UNUserNotificationCenter.current()
+
+    let enterTrigger = UNLocationNotificationTrigger(region:enterBeaconRegion, repeats:true)
+    let enterContent = UNMutableNotificationContent()
+    enterContent.title = "Beacon Region"
+    enterContent.body = "Entered"
+    enterContent.sound = UNNotificationSound.default()
+
+    let request = UNNotificationRequest(identifier: "enter region", content: enterContent, trigger: enterTrigger)
+    center.add(request, withCompletionHandler: { (error) in
+      if let error = error {
+        self.logMessage("Error adding local notification for entry: \(error.localizedDescription)")
+      }
+    })
+
+    let exitTrigger = UNLocationNotificationTrigger(region:exitBeaconRegion, repeats:true)
+    let exitContent = UNMutableNotificationContent()
+    exitContent.title = "Beacon Region"
+    exitContent.body = "Exited"
+    exitContent.sound = UNNotificationSound.default()
+    
+    let exitRequest = UNNotificationRequest(identifier: "exit region", content: exitContent, trigger: exitTrigger)
+    center.add(exitRequest, withCompletionHandler: { (error) in
+      if let error = error {
+        self.logMessage("Error adding local notification for exit: \(error.localizedDescription)")
+      }
+    })
+  }
+  
+  func cancelLocalNotifications() {
+    let center = UNUserNotificationCenter.current()
+    center.removeAllPendingNotificationRequests()
+ }
   
   func decorateViews() {
     logTextView.drawBorder(width: logBorderWidth, color: logBorderColor)
@@ -91,6 +146,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
     }
     else {
       locationManager.stopRangingBeacons(in: beaconRegion)
+    }
+  }
+  
+  @IBAction func localNotificationsAction(_ sender: UISwitch) {
+    let shouldUseLocalNotifications = sender.isOn
+    if shouldUseLocalNotifications {
+      createLocalNotifications()
+    }
+    else {
+      cancelLocalNotifications()
     }
   }
   
