@@ -1,14 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Beacon_Thing" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +21,154 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Range Beacons in Region" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pdb-8Z-XZw">
+                                <rect key="frame" x="16" y="163" width="194" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aRE-D3-yBJ" userLabel="Range Beacons in Region Switch">
+                                <rect key="frame" x="310" y="158" width="51" height="31"/>
+                                <accessibility key="accessibilityConfiguration" label="Range Beacons in Region"/>
+                                <connections>
+                                    <action selector="rangeAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="WIG-Cc-5hf"/>
+                                </connections>
+                            </switch>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cbJ-Ij-8UM">
+                                <rect key="frame" x="16" y="340" width="343" height="269"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BeaconThing™" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25B-NV-uZH">
+                                <rect key="frame" x="98" y="28" width="179" height="33.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monitor Beacon Region" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hx5-PS-PFh">
+                                <rect key="frame" x="16" y="124.5" width="178" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VUa-xi-5vp" userLabel="Monitor Beacon Region Switch">
+                                <rect key="frame" x="310" y="119" width="51" height="31"/>
+                                <accessibility key="accessibilityConfiguration" label="Monitor Beacon Region"/>
+                                <connections>
+                                    <action selector="monitorAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="wOX-L2-hOf"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UUID Goes Here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jGp-1g-nW0" userLabel="Actual UUID being monitored">
+                                <rect key="frame" x="16" y="271" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bluetooth is ON/OFF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y4d-gb-Woj">
+                                <rect key="frame" x="16" y="84" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UUID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pk8-ik-K5q">
+                                <rect key="frame" x="16" y="242" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Region Inside/Outside Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEa-HB-mHd">
+                                <rect key="frame" x="16" y="311" width="343" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Nfr-qg-cnj">
+                                <rect key="frame" x="310" y="197" width="51" height="31"/>
+                                <connections>
+                                    <action selector="localNotificationsAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="FjK-7W-Bhw"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Local Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tdd-B6-t8S">
+                                <rect key="frame" x="16" y="202" width="141.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sound" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBm-3a-Edd">
+                                <rect key="frame" x="16" y="621" width="50" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="udR-mb-eSc">
+                                <rect key="frame" x="81" y="616" width="51" height="31"/>
+                                <connections>
+                                    <action selector="soundAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="g8w-EJ-XUG"/>
+                                </connections>
+                            </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iaB-Iq-7sf">
+                                <rect key="frame" x="293" y="617" width="66" height="30"/>
+                                <state key="normal" title="Clear Log"/>
+                                <connections>
+                                    <action selector="clearLogAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="zWJ-FE-cM0"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="udR-mb-eSc" firstAttribute="leading" secondItem="jBm-3a-Edd" secondAttribute="trailing" constant="15" id="0Qp-Ie-rdx"/>
+                            <constraint firstItem="QEa-HB-mHd" firstAttribute="top" secondItem="jGp-1g-nW0" secondAttribute="bottom" constant="19" id="634-jf-8ti"/>
+                            <constraint firstItem="25B-NV-uZH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="6QM-5o-GSp"/>
+                            <constraint firstItem="cbJ-Ij-8UM" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="7qZ-nr-KP7"/>
+                            <constraint firstItem="Nfr-qg-cnj" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="8cP-Si-dwr"/>
+                            <constraint firstItem="aRE-D3-yBJ" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="A3b-1H-2bT"/>
+                            <constraint firstItem="Nfr-qg-cnj" firstAttribute="top" secondItem="aRE-D3-yBJ" secondAttribute="bottom" constant="8" id="C6g-wo-wad"/>
+                            <constraint firstItem="Y4d-gb-Woj" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="DM8-5n-d1Q"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="iaB-Iq-7sf" secondAttribute="bottom" constant="20" id="EbG-9k-lW1"/>
+                            <constraint firstItem="udR-mb-eSc" firstAttribute="centerY" secondItem="jBm-3a-Edd" secondAttribute="centerY" id="Fjw-Tq-Ffw"/>
+                            <constraint firstItem="QEa-HB-mHd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="KST-uA-oK9"/>
+                            <constraint firstItem="VUa-xi-5vp" firstAttribute="centerY" secondItem="Hx5-PS-PFh" secondAttribute="centerY" id="MIZ-wd-Bbo"/>
+                            <constraint firstItem="jGp-1g-nW0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="NJg-PG-nlC"/>
+                            <constraint firstItem="aRE-D3-yBJ" firstAttribute="top" secondItem="VUa-xi-5vp" secondAttribute="bottom" constant="8" id="QTm-2c-phV"/>
+                            <constraint firstItem="25B-NV-uZH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SCD-I7-Wlw"/>
+                            <constraint firstItem="pk8-ik-K5q" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="SGd-uX-RpG"/>
+                            <constraint firstItem="cbJ-Ij-8UM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="SrO-bP-4ny"/>
+                            <constraint firstItem="tdd-B6-t8S" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="XSG-5p-d00"/>
+                            <constraint firstItem="Y4d-gb-Woj" firstAttribute="top" secondItem="25B-NV-uZH" secondAttribute="bottom" constant="22.5" id="a0f-Mk-yYe"/>
+                            <constraint firstItem="VUa-xi-5vp" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="bWV-hv-eJj"/>
+                            <constraint firstItem="iaB-Iq-7sf" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="bzb-Nb-XO1"/>
+                            <constraint firstItem="cbJ-Ij-8UM" firstAttribute="top" secondItem="QEa-HB-mHd" secondAttribute="bottom" constant="8" id="fak-Lo-BBT"/>
+                            <constraint firstItem="jGp-1g-nW0" firstAttribute="top" secondItem="pk8-ik-K5q" secondAttribute="bottom" constant="8" id="g9m-KN-5kG"/>
+                            <constraint firstItem="jGp-1g-nW0" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="gWH-nD-MPp"/>
+                            <constraint firstItem="Nfr-qg-cnj" firstAttribute="centerY" secondItem="tdd-B6-t8S" secondAttribute="centerY" id="hmk-OO-3GC"/>
+                            <constraint firstItem="iaB-Iq-7sf" firstAttribute="top" secondItem="cbJ-Ij-8UM" secondAttribute="bottom" constant="8" id="jUW-BJ-ZNf"/>
+                            <constraint firstItem="iaB-Iq-7sf" firstAttribute="baseline" secondItem="jBm-3a-Edd" secondAttribute="baseline" id="kdu-42-4TJ"/>
+                            <constraint firstItem="pk8-ik-K5q" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="lo7-xm-wNk"/>
+                            <constraint firstItem="jBm-3a-Edd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="n7K-a7-hDO"/>
+                            <constraint firstItem="Pdb-8Z-XZw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="nxO-4p-ltL"/>
+                            <constraint firstItem="Hx5-PS-PFh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="sH7-mc-wry"/>
+                            <constraint firstItem="QEa-HB-mHd" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="saJ-k9-DHE"/>
+                            <constraint firstItem="VUa-xi-5vp" firstAttribute="top" secondItem="Y4d-gb-Woj" secondAttribute="bottom" constant="14" id="srf-V8-yhW"/>
+                            <constraint firstItem="pk8-ik-K5q" firstAttribute="top" secondItem="Nfr-qg-cnj" secondAttribute="bottom" constant="14" id="vyy-VK-LTj"/>
+                            <constraint firstItem="aRE-D3-yBJ" firstAttribute="centerY" secondItem="Pdb-8Z-XZw" secondAttribute="centerY" id="ynS-IB-P1Z"/>
+                            <constraint firstItem="Y4d-gb-Woj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="zBL-jn-Dxu"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bluetoothStatusLabel" destination="Y4d-gb-Woj" id="Kut-0Q-NYZ"/>
+                        <outlet property="localNotificationsSwitch" destination="Nfr-qg-cnj" id="Y5Z-PQ-bg9"/>
+                        <outlet property="logTextView" destination="cbJ-Ij-8UM" id="o5S-Bk-uwf"/>
+                        <outlet property="monitorRegionSwitch" destination="VUa-xi-5vp" id="6nO-a0-2c7"/>
+                        <outlet property="rangeBeaconsInRegionSwitch" destination="aRE-D3-yBJ" id="3PU-Ax-Zpy"/>
+                        <outlet property="regionStatusLabel" destination="QEa-HB-mHd" id="J1h-aU-DND"/>
+                        <outlet property="uuidLabel" destination="jGp-1g-nW0" id="cAU-Bn-WcD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="141.59999999999999" y="138.98050974512745"/>
         </scene>
     </scenes>
 </document>
