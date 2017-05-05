@@ -43,8 +43,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
     super.viewDidLoad()
     initializeLogging()
     initializeBluetooth()
-    enableControlsForState(bluetoothState: bluetoothManager.state)
+    enableControlsForState(bluetoothState: bluetoothManager.state, locationState: CLLocationManager.authorizationStatus())
     initializeCoreLocation()
+    checkAuthorization()
     initializeBeaconData()
     initializeNotifications()
     decorateViews()
@@ -62,6 +63,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
   func initializeCoreLocation() {
     locationManager.delegate = self
     locationManager.allowsBackgroundLocationUpdates = true
+  }
+  
+  func checkAuthorization() {
+    if (CLLocationManager.authorizationStatus() != .authorizedAlways) {
+      locationManager.requestAlwaysAuthorization()
+    }
   }
   
   func initializeBeaconData() {
@@ -128,13 +135,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
     bluetoothStatusLabel.text = "Bluetooth is \(bluetoothManager.stateDescription())"
   }
   
-  func enableControlsForState(bluetoothState: CBManagerState) {
-    setControlsEnabled(enabled: bluetoothState == .poweredOn)
+  func enableControlsForState(bluetoothState: CBManagerState, locationState: CLAuthorizationStatus) {
+    setControlsEnabled(enabled: bluetoothState == .poweredOn && locationState == .authorizedAlways)
   }
   
   func setControlsEnabled(enabled: Bool) {
     monitorRegionSwitch.isEnabled = enabled
     rangeBeaconsInRegionSwitch.isEnabled = enabled
+    localNotificationsSwitch.isEnabled = enabled
   }
   
   func updateRegionStatus(forState state: CLRegionState) {
@@ -196,7 +204,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
   
   func centralManagerDidUpdateState(_ central: CBCentralManager) {
     updateBluetoothStatus()
-    enableControlsForState(bluetoothState: central.state)
+    enableControlsForState(bluetoothState: central.state, locationState: CLLocationManager.authorizationStatus())
+  }
+  
+  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    enableControlsForState(bluetoothState: bluetoothManager.state, locationState: status)
   }
   
   func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
