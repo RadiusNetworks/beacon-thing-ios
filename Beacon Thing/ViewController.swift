@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import CoreBluetooth
 import UserNotifications
+import AVFoundation
 
 class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralManagerDelegate {
 
@@ -30,17 +31,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
   var enterBeaconRegion: CLBeaconRegion!
   var exitBeaconRegion: CLBeaconRegion!
 
+  var playLogSound = true
+  let logSoundID: SystemSoundID = 1123
+  
   let logBorderWidth = CGFloat(2.0)
   let logBorderColor = UIColor.black.cgColor
   
+  let dateFormatter = DateFormatter()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    initializeLogging()
     initializeBluetooth()
     enableControlsForState(bluetoothState: bluetoothManager.state)
     initializeCoreLocation()
     initializeBeaconData()
     initializeNotifications()
     decorateViews()
+  }
+  
+  func initializeLogging() {
+    dateFormatter.dateStyle = .short
+    dateFormatter.timeStyle = .medium
   }
   
   func initializeBluetooth() {
@@ -159,6 +171,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
     }
   }
   
+  @IBAction func soundAction(_ sender: UISwitch) {
+    playLogSound = sender.isOn
+  }
+  
   @IBAction func clearLogAction() {
     logTextView.text = ""
   }
@@ -169,7 +185,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, CBCentralMana
   }
   
   func logMessage(_ message: String) {
-    logTextView.text = logTextView.text + message + "\n"
+    logTextView.text = logTextView.text + dateFormatter.string(from: Date()) + ": " + message + "\n"
+    let textLength = logTextView.text.lengthOfBytes(using: .utf8)
+    let bottom = NSMakeRange(textLength - 1, 1)
+    logTextView.scrollRangeToVisible(bottom)
+    if playLogSound {
+      AudioServicesPlaySystemSound(logSoundID)
+    }
   }
   
   func centralManagerDidUpdateState(_ central: CBCentralManager) {

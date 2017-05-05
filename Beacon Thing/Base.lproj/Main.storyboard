@@ -84,13 +84,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iaB-Iq-7sf">
-                                <rect key="frame" x="154" y="617" width="66" height="30"/>
-                                <state key="normal" title="Clear Log"/>
-                                <connections>
-                                    <action selector="clearLogAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="zWJ-FE-cM0"/>
-                                </connections>
-                            </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Nfr-qg-cnj">
                                 <rect key="frame" x="310" y="197" width="51" height="31"/>
                                 <connections>
@@ -103,9 +96,29 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sound" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jBm-3a-Edd">
+                                <rect key="frame" x="16" y="621" width="50" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="udR-mb-eSc">
+                                <rect key="frame" x="81" y="616" width="51" height="31"/>
+                                <connections>
+                                    <action selector="soundAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="g8w-EJ-XUG"/>
+                                </connections>
+                            </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iaB-Iq-7sf">
+                                <rect key="frame" x="293" y="617" width="66" height="30"/>
+                                <state key="normal" title="Clear Log"/>
+                                <connections>
+                                    <action selector="clearLogAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="zWJ-FE-cM0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="udR-mb-eSc" firstAttribute="leading" secondItem="jBm-3a-Edd" secondAttribute="trailing" constant="15" id="0Qp-Ie-rdx"/>
                             <constraint firstItem="QEa-HB-mHd" firstAttribute="top" secondItem="jGp-1g-nW0" secondAttribute="bottom" constant="19" id="634-jf-8ti"/>
                             <constraint firstItem="25B-NV-uZH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="6QM-5o-GSp"/>
                             <constraint firstItem="cbJ-Ij-8UM" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="7qZ-nr-KP7"/>
@@ -114,10 +127,10 @@
                             <constraint firstItem="Nfr-qg-cnj" firstAttribute="top" secondItem="aRE-D3-yBJ" secondAttribute="bottom" constant="8" id="C6g-wo-wad"/>
                             <constraint firstItem="Y4d-gb-Woj" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="DM8-5n-d1Q"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="iaB-Iq-7sf" secondAttribute="bottom" constant="20" id="EbG-9k-lW1"/>
+                            <constraint firstItem="udR-mb-eSc" firstAttribute="centerY" secondItem="jBm-3a-Edd" secondAttribute="centerY" id="Fjw-Tq-Ffw"/>
                             <constraint firstItem="QEa-HB-mHd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="KST-uA-oK9"/>
                             <constraint firstItem="VUa-xi-5vp" firstAttribute="centerY" secondItem="Hx5-PS-PFh" secondAttribute="centerY" id="MIZ-wd-Bbo"/>
                             <constraint firstItem="jGp-1g-nW0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="NJg-PG-nlC"/>
-                            <constraint firstItem="iaB-Iq-7sf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PEJ-6o-Bu5"/>
                             <constraint firstItem="aRE-D3-yBJ" firstAttribute="top" secondItem="VUa-xi-5vp" secondAttribute="bottom" constant="8" id="QTm-2c-phV"/>
                             <constraint firstItem="25B-NV-uZH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SCD-I7-Wlw"/>
                             <constraint firstItem="pk8-ik-K5q" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="SGd-uX-RpG"/>
@@ -125,12 +138,15 @@
                             <constraint firstItem="tdd-B6-t8S" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="XSG-5p-d00"/>
                             <constraint firstItem="Y4d-gb-Woj" firstAttribute="top" secondItem="25B-NV-uZH" secondAttribute="bottom" constant="22.5" id="a0f-Mk-yYe"/>
                             <constraint firstItem="VUa-xi-5vp" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="bWV-hv-eJj"/>
+                            <constraint firstItem="iaB-Iq-7sf" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="bzb-Nb-XO1"/>
                             <constraint firstItem="cbJ-Ij-8UM" firstAttribute="top" secondItem="QEa-HB-mHd" secondAttribute="bottom" constant="8" id="fak-Lo-BBT"/>
                             <constraint firstItem="jGp-1g-nW0" firstAttribute="top" secondItem="pk8-ik-K5q" secondAttribute="bottom" constant="8" id="g9m-KN-5kG"/>
                             <constraint firstItem="jGp-1g-nW0" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="gWH-nD-MPp"/>
                             <constraint firstItem="Nfr-qg-cnj" firstAttribute="centerY" secondItem="tdd-B6-t8S" secondAttribute="centerY" id="hmk-OO-3GC"/>
                             <constraint firstItem="iaB-Iq-7sf" firstAttribute="top" secondItem="cbJ-Ij-8UM" secondAttribute="bottom" constant="8" id="jUW-BJ-ZNf"/>
+                            <constraint firstItem="iaB-Iq-7sf" firstAttribute="baseline" secondItem="jBm-3a-Edd" secondAttribute="baseline" id="kdu-42-4TJ"/>
                             <constraint firstItem="pk8-ik-K5q" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="lo7-xm-wNk"/>
+                            <constraint firstItem="jBm-3a-Edd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="n7K-a7-hDO"/>
                             <constraint firstItem="Pdb-8Z-XZw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="nxO-4p-ltL"/>
                             <constraint firstItem="Hx5-PS-PFh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="sH7-mc-wry"/>
                             <constraint firstItem="QEa-HB-mHd" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="saJ-k9-DHE"/>
